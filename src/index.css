@@ -11,58 +11,74 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --light: #f8f9fa;
+  --dark: #343a40;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  background-image: url("/bg-circles.png");
+  background-size: cover;
+  background-position: center;
   min-height: 100vh;
+  min-width: 100vw;
+  --transition-normal: 0.3s ease-in-out;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.bg-light {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(256, 256, 256, 0.05);
+  transition: var(--transition-normal);
+  box-shadow: 1px 1px 1px rgba(000, 000, 000, 0.5);
+  color: var(--dark);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.bg-x2light {
+  background-color: transparent;
+  background-color: rgba(256, 256, 256, 0.2);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow: 1px 1px 1px rgba(000, 000, 000, 0.5);
+  color: var(--dark);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.bg-x3light {
+  background-color: transparent;
+  background-color: rgba(256, 256, 256, 0.3);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  box-shadow: 1px 1px 1px rgba(000, 000, 000, 0.5);
+  color: var(--dark);
+}
+
+.bg-dark {
+  background-color: transparent;
+  background-color: rgba(000, 000, 000, 0.1);
+  transition: var(--transition-normal);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: var(--light);
+  box-shadow: 1px 1px 1px rgba(000, 000, 000, 0.5);
+  color: var(--light);
+}
+
+.bg-x2dark {
+  background-color: transparent;
+  background-color: rgba(000, 000, 000, 0.2);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  color: var(--light);
+  box-shadow: 1px 1px 1px rgba(000, 000, 000, 0.5);
+  color: var(--light);
+}
+
+.bg-x3dark {
+  background-color: transparent;
+  background-color: rgba(000, 000, 000, 0.3);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  color: var(--light);
+  box-shadow: 1px 1px 1px rgba(000, 000, 000, 0.5);
+  color: var(--light);
 }
