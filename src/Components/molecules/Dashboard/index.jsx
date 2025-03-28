@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { getCards } from "./request";
 import { Container, Row } from "react-bootstrap";
 import Card from "../../atoms/Card";
+import { InitializeCards } from "./functions";
 
 export const DashboardGame = () => {
   const [cards, setCards] = useState([]);
   const _getCards = async () => {
     const { entries } = await getCards();
-    setCards(() => entries.map(({ fields }) => fields?.image));
+    setCards(() => InitializeCards(entries));
   };
   useEffect(() => {
     _getCards();
   }, []);
-  console.log(cards);
   return (
     <>
       <Container fluid={"sm md lg lx xxl"} className="bg-x2dark">
