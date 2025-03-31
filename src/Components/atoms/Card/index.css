@@ -8,6 +8,7 @@
   height: 200px;
   margin: 1rem;
   perspective: 1000px;
+  cursor: pointer;
 }
 
 .flip-card-inner {
@@ -20,7 +21,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.flip-card:hover .flip-card-inner {
+.display-card {
   transform: rotateY(180deg);
 }
 
