@@ -56,7 +56,7 @@ export const DashboardGame = () => {
 
   return (
     <>
-      <Container fluid={"sm md lg lx xxl"} className="bg-x2dark">
+      <Container fluid={"sm md lg lx xxl"} className="bg-x2dark" style={{ borderRadius: "12px"}}>
         <Row
           bsPrefix="row"
           xxl={12}
