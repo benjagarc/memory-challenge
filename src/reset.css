@@ -1,0 +1,167 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elimina la herencia de fuentes y usa el tamaño de fuente del sistema */
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%; /* Evita el zoom en móviles */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeSpeed;
+  scroll-behavior: smooth;
+}
+
+/* Evita el estilo predeterminado de los elementos interactivos */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* Mejora la accesibilidad: Solo muestra el borde al navegar con teclado */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Cuerpo sin márgenes y con altura mínima */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+}
+
+/* Enlaces sin estilos de decoración */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Listas sin viñetas */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Imágenes responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Tablas sin bordes y con ancho completo */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Mejora la accesibilidad en elementos ocultos */
+[hidden] {
+  display: none !important;
+}
+
+/* Evita el subrayado azul en enlaces de Safari */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Tipografía fluida usando clamp() */
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem); /* Entre 32px y 48px */
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem); /* Entre 28px y 40px */
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3.5vw, 2rem); /* Entre 24px y 32px */
+}
+
+h4 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem); /* Entre 20px y 28px */
+}
+
+h5 {
+  font-size: clamp(1rem, 2.5vw, 1.5rem); /* Entre 16px y 24px */
+}
+
+h6 {
+  font-size: clamp(0.875rem, 2vw, 1.25rem); /* Entre 14px y 20px */
+}
+
+p,
+li,
+a,
+span {
+  font-size: clamp(1rem, 2vw, 1.125rem); /* Entre 16px y 18px */
+}
+
+small {
+  font-size: clamp(0.875rem, 1.5vw, 1rem); /* Entre 14px y 16px */
+}
+
+/* Botones y etiquetas */
+button,
+label {
+  font-size: clamp(1rem, 2vw, 1.125rem); /* Entre 16px y 18px */
+  font-weight: bold;
+}
+
+/* Inputs y textarea */
+input,
+textarea {
+  font-size: 1rem; /* 16px */
+}
+
+/* Para mejorar la accesibilidad */
+body {
+  line-height: 1.6;
+}
+
+/* Media query para pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  body {
+    font-size: 0.875rem; /* 14px */
+  }
+}
+
+/* Media query para pantallas medianas (tabletas) */
+@media (min-width: 601px) and (max-width: 900px) {
+  body {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+/* Media query para pantallas grandes (computadoras de escritorio) */
+@media (min-width: 901px) and (max-width: 1200px) {
+  body {
+    font-size: 1.125rem; /* 18px */
+  }
+}
+
+/* Media query para pantallas extra grandes (monitores) */
+@media (min-width: 1201px) {
+  body {
+    font-size: 1.25rem; /* 20px */
+  }
+}
