@@ -1,0 +1,15 @@
+.row-counters {
+  width: fit-content;
+  margin: 0 auto !important;
+  border-radius: 12px;
+  padding: 5px;
+  width: 90%;
+  justify-content: center;
+}
+
+.container-complements {
+  border-radius: 12px !important;
+  padding: 1rem !important;
+}
+
+

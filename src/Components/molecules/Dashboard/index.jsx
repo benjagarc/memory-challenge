@@ -5,6 +5,8 @@ import Card from "../../atoms/Card";
 import { InitializeCards } from "./functions";
 import { AttempsContext } from "../../../store/Attemps";
 import { ErrorsContext } from "../../../store/Errors";
+import { Counter } from "../../atoms/Counter";
+import "./index.css";
 
 export const DashboardGame = () => {
   // hooks
@@ -56,7 +58,14 @@ export const DashboardGame = () => {
 
   return (
     <>
-      <Container fluid={"sm md lg lx xxl"} className="bg-x2dark" style={{ borderRadius: "12px"}}>
+      <Container
+        fluid={"sm md lg lx xxl"}
+        className="bg-x2dark container-complements "
+      >
+        <Row className="bg-x3dark row-counters">
+          <Counter text="Intentos" count={attemps} url="/hand.svg" />
+          <Counter text="Errores" count={errors} url="error.svg" />
+        </Row>
         <Row
           bsPrefix="row"
           xxl={12}
@@ -66,7 +75,6 @@ export const DashboardGame = () => {
           sm={12}
           xs={12}
           style={{
-            display: "flex",
             flexWrap: "wrap",
             justifyContent: "center",
           }}
@@ -80,11 +88,10 @@ export const DashboardGame = () => {
             />
           ))}
         </Row>
-        {attemps}
-        {errors}
-        {cards.every(({ matched }) => matched === true)
+
+        {/* {cards.every(({ matched }) => matched === true)
           ? "terminado"
-          : " aún no"}
+          : " aún no"} */}
       </Container>
     </>
   );
