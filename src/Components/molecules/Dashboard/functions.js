@@ -2,7 +2,7 @@ export const InitializeCards = (images) => {
   const PairedCard = [...images, ...images]
     .map(({ fields }) => ({
       ...fields?.image,
-      match: false,
+      matched: false,
     }))
     .sort(() => Math.random() - 0.5);
 
