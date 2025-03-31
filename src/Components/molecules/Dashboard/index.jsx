@@ -65,7 +65,11 @@ export const DashboardGame = () => {
           md={12}
           sm={12}
           xs={12}
-          style={{ display: "flex", flexWrap: "wrap" }}
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
         >
           {cards?.map((item, index) => (
             <Card
@@ -78,6 +82,9 @@ export const DashboardGame = () => {
         </Row>
         {attemps}
         {errors}
+        {cards.every(({ matched }) => matched === true)
+          ? "terminado"
+          : " aún no"}
       </Container>
     </>
   );
