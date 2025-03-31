@@ -1,26 +1,59 @@
 import { useContext, useEffect, useState } from "react";
 import { getCards } from "./request";
-import { Button, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Card from "../../atoms/Card";
 import { InitializeCards } from "./functions";
 import { AttempsContext } from "../../../store/Attemps";
-import { ErrorsContext }  from "../../../store/Errors";
+import { ErrorsContext } from "../../../store/Errors";
 
 export const DashboardGame = () => {
   // hooks
   const [cards, setCards] = useState([]);
+  const [selectedCards, setSelectedCards] = useState([]);
+  const [disabled, setDisabled] = useState(false);
 
   // context
   const { attemps, setAttemps } = useContext(AttempsContext);
-  const { errors,  } = useContext(ErrorsContext);
+  const { errors, setErrors } = useContext(ErrorsContext);
 
+  // request
   const _getCards = async () => {
     const { entries } = await getCards();
     setCards(() => InitializeCards(entries));
   };
+
+  // functions
+  const handleClick = (card) => {
+    if (!disabled && !selectedCards.includes(card) && !card.matched) {
+      setSelectedCards((prev) => [...prev, card]);
+    }
+  };
+
   useEffect(() => {
     _getCards();
   }, []);
+
+  useEffect(() => {
+    if (selectedCards.length === 2) {
+      setDisabled((prev) => !prev);
+      setAttemps((prev) => prev + 1);
+      setTimeout(() => {
+        const [first, second] = selectedCards;
+        if (first.uuid === second.uuid) {
+          setCards((prev) =>
+            prev.map((card) =>
+              card.uuid === first.uuid ? { ...card, matched: true } : card
+            )
+          );
+        } else {
+          setErrors((prev) => prev + 1);
+        }
+        setSelectedCards(() => []);
+        setDisabled((prev) => !prev);
+      }, 1000);
+    }
+  }, [selectedCards]);
+
   return (
     <>
       <Container fluid={"sm md lg lx xxl"} className="bg-x2dark">
@@ -35,15 +68,14 @@ export const DashboardGame = () => {
           style={{ display: "flex", flexWrap: "wrap" }}
         >
           {cards?.map((item, index) => (
-            <Card key={index} {...item} />
+            <Card
+              key={index}
+              {...item}
+              displayCard={() => handleClick(item)}
+              matched={selectedCards.includes(item) || item.matched}
+            />
           ))}
         </Row>
-        <Button
-          variant="primary"
-          onClick={() => setAttemps((prev) => prev + 1)}
-        >
-          Click
-        </Button>
         {attemps}
         {errors}
       </Container>
