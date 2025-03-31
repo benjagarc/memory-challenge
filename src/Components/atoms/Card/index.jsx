@@ -1,4 +1,5 @@
 import "./index.css";
+import PropTypes from "prop-types";
 
 export const Card = ({ url, title, displayCard, matched }) => {
   return (
@@ -11,6 +12,13 @@ export const Card = ({ url, title, displayCard, matched }) => {
       </div>
     </div>
   );
+};
+
+Card.prototype = {
+  url: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  displayCard: PropTypes.func.isRequired,
+  matched: PropTypes.bool.isRequired,
 };
 
 export default Card;
