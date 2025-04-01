@@ -8,3 +8,9 @@ export const InitializeCards = (images) => {
 
   return PairedCard;
 };
+
+export const shuffleCards = (cards) => {
+  return cards
+    .map((card) => ({ ...card, matched: false }))
+    .sort(() => Math.random() - 0.5);
+};
