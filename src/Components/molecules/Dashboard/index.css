@@ -3,13 +3,18 @@
   margin: 0 auto !important;
   border-radius: 12px;
   padding: 5px;
-  width: 90%;
+  width: 98%;
   justify-content: center;
 }
 
 .container-complements {
   border-radius: 12px !important;
   padding: 1rem !important;
+}
+
+.custom-row {
+  justify-content: center;
+  margin-right: 0 !important;
 }
 
 @media (min-width: 481px) and (max-width: 768px) {

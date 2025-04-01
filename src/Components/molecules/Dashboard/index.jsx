@@ -74,10 +74,7 @@ export const DashboardGame = () => {
           md={12}
           sm={12}
           xs={12}
-          style={{
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
+          className="custom-row"
         >
           {cards?.map((item, index) => (
             <Col xs={3} sm={3} md={2} lg={2} xl={2} xxl={2}>
