@@ -1,4 +1,12 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  lazy,
+  Suspense,
+  memo,
+} from "react";
 import { getCards } from "./request";
 import { Col, Container, Row } from "react-bootstrap";
 import Card from "../../atoms/Card";
@@ -7,8 +15,10 @@ import { AttempsContext } from "../../../store/Attemps";
 import { ErrorsContext } from "../../../store/Errors";
 import { Counter } from "../../atoms/Counter";
 import "./index.css";
-import FloatCard from "../../atoms/FloatCard";
 import { Button } from "react-bootstrap";
+
+const FloatCard = lazy(() => import("../../atoms/FloatCard"));
+const MemorizedCard = memo(Card);
 
 export const DashboardGame = () => {
   // hooks
@@ -76,12 +86,14 @@ export const DashboardGame = () => {
   return (
     <>
       {isFinish && (
-        <FloatCard>
-          <>
-            <h1>{savedUser} el juego ha terminado</h1>
-            <Button onClick={() => resetGame()}>Reiniciar</Button>
-          </>
-        </FloatCard>
+        <Suspense fallback={<div>Loading...</div>}>
+          <FloatCard>
+            <>
+              <h1>{savedUser} el juego ha terminado</h1>
+              <Button onClick={() => resetGame()}>Reiniciar</Button>
+            </>
+          </FloatCard>
+        </Suspense>
       )}
 
       {!savedUser && (
@@ -123,7 +135,7 @@ export const DashboardGame = () => {
         >
           {cards?.map((item, index) => (
             <Col xs={3} sm={3} md={2} lg={2} xl={2} xxl={2} key={index}>
-              <Card
+              <MemorizedCard
                 {...item}
                 displayCard={() => handleClick(item)}
                 matched={selectedCards.includes(item) || item.matched}
