@@ -59,7 +59,7 @@ export const DashboardGame = () => {
         } else {
           setErrors((prev) => prev + 1);
         }
-        if (cards.every(({ matched }) => matched === true)) {
+        if (cards.every(({ matched }) => matched === true) && attemps > 0) {
           setIsShow((prev) => !prev);
         }
         setSelectedCards(() => []);
