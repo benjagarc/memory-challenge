@@ -6,6 +6,7 @@ import {
   lazy,
   Suspense,
   memo,
+  useTransition,
 } from "react";
 import { getCards } from "./request";
 import { Col, Container, Row } from "react-bootstrap";
@@ -27,6 +28,7 @@ export const DashboardGame = () => {
   const [disabled, setDisabled] = useState(false);
   const [userName, setUsername] = useState("");
   const [savedUser, setSavedUser] = useState("");
+  const [_, startTransition] = useTransition();
 
   // context
   const { attemps, setAttemps } = useContext(AttempsContext);
@@ -62,19 +64,21 @@ export const DashboardGame = () => {
     if (selectedCards.length === 2) {
       setDisabled((prev) => !prev);
       setTimeout(() => {
-        const [first, second] = selectedCards;
-        if (first.uuid === second.uuid) {
-          setCards((prev) =>
-            prev.map((card) =>
-              card.uuid === first.uuid ? { ...card, matched: true } : card
-            )
-          );
-          setAttemps((prev) => prev + 1);
-        } else {
-          setErrors((prev) => prev + 1);
-        }
-        setSelectedCards(() => []);
-        setDisabled((prev) => !prev);
+        startTransition(() => {
+          const [first, second] = selectedCards;
+          if (first.uuid === second.uuid) {
+            setCards((prev) =>
+              prev.map((card) =>
+                card.uuid === first.uuid ? { ...card, matched: true } : card
+              )
+            );
+            setAttemps((prev) => prev + 1);
+          } else {
+            setErrors((prev) => prev + 1);
+          }
+          setSelectedCards(() => []);
+          setDisabled((prev) => !prev);
+        });
       }, 1000);
     }
   }, [selectedCards]);
