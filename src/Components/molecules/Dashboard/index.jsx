@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { getCards } from "./request";
 import { Col, Container, Row } from "react-bootstrap";
 import Card from "../../atoms/Card";
@@ -15,7 +15,6 @@ export const DashboardGame = () => {
   const [cards, setCards] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
   const [disabled, setDisabled] = useState(false);
-  const [isShow, setIsShow] = useState(false);
   const [userName, setUsername] = useState("");
   const [savedUser, setSavedUser] = useState("");
 
@@ -39,7 +38,6 @@ export const DashboardGame = () => {
   const resetGame = () => {
     setAttemps(() => 0);
     setErrors(() => 0);
-    setIsShow((prev) => !prev);
     setCards((prev) => shuffleCards(prev));
   };
 
@@ -61,11 +59,9 @@ export const DashboardGame = () => {
               card.uuid === first.uuid ? { ...card, matched: true } : card
             )
           );
+          setAttemps((prev) => prev + 1);
         } else {
           setErrors((prev) => prev + 1);
-        }
-        if (cards.every(({ matched }) => matched === true) && attemps > 0) {
-          setIsShow((prev) => !prev);
         }
         setSelectedCards(() => []);
         setDisabled((prev) => !prev);
@@ -73,16 +69,13 @@ export const DashboardGame = () => {
     }
   }, [selectedCards]);
 
-  useEffect(() => {
-    if (cards.every(({ matched }) => matched === true)) {
-      setIsShow((prev) => !prev);
-    }
-    setAttemps(() => cards.filter(({ matched }) => matched === true).length);
-  }, [cards]);
-
+  const isFinish = useMemo(
+    () => cards.length > 0 && cards.every(({ matched }) => matched === true),
+    [cards]
+  );
   return (
     <>
-      {isShow && (
+      {isFinish && (
         <FloatCard>
           <>
             <h1>{savedUser} el juego ha terminado</h1>
