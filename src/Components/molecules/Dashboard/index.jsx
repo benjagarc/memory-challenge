@@ -2,17 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import { getCards } from "./request";
 import { Col, Container, Row } from "react-bootstrap";
 import Card from "../../atoms/Card";
-import { InitializeCards } from "./functions";
+import { InitializeCards, shuffleCards } from "./functions";
 import { AttempsContext } from "../../../store/Attemps";
 import { ErrorsContext } from "../../../store/Errors";
 import { Counter } from "../../atoms/Counter";
 import "./index.css";
+import Message from "../../atoms/Message";
 
 export const DashboardGame = () => {
   // hooks
   const [cards, setCards] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
   const [disabled, setDisabled] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
   // context
   const { attemps, setAttemps } = useContext(AttempsContext);
@@ -29,6 +31,13 @@ export const DashboardGame = () => {
     if (!disabled && !selectedCards.includes(card) && !card.matched) {
       setSelectedCards((prev) => [...prev, card]);
     }
+  };
+
+  const resetGame = () => {
+    setAttemps(() => 0);
+    setErrors(() => 0);
+    setIsShow((prev) => !prev);
+    setCards((prev) => shuffleCards(prev));
   };
 
   useEffect(() => {
@@ -50,14 +59,24 @@ export const DashboardGame = () => {
         } else {
           setErrors((prev) => prev + 1);
         }
+        if (cards.every(({ matched }) => matched === true)) {
+          setIsShow((prev) => !prev);
+        }
         setSelectedCards(() => []);
         setDisabled((prev) => !prev);
       }, 1000);
     }
   }, [selectedCards]);
 
+  useEffect(() => {
+    if (cards.every(({ matched }) => matched === true)) {
+      setIsShow((prev) => !prev);
+    }
+  }, [cards]);
+
   return (
     <>
+      {isShow && <Message setIsShow={() => resetGame()} />}
       <Container
         fluid={"sm md lg lx xxl"}
         className="bg-x2dark container-complements "
@@ -77,9 +96,8 @@ export const DashboardGame = () => {
           className="custom-row"
         >
           {cards?.map((item, index) => (
-            <Col xs={3} sm={3} md={2} lg={2} xl={2} xxl={2}>
+            <Col xs={3} sm={3} md={2} lg={2} xl={2} xxl={2} key={index}>
               <Card
-                key={index}
                 {...item}
                 displayCard={() => handleClick(item)}
                 matched={selectedCards.includes(item) || item.matched}
@@ -87,10 +105,6 @@ export const DashboardGame = () => {
             </Col>
           ))}
         </Row>
-
-        {/* {cards.every(({ matched }) => matched === true)
-          ? "terminado"
-          : " aún no"} */}
       </Container>
     </>
   );
