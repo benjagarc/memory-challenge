@@ -5,7 +5,6 @@ import {
   useState,
   lazy,
   Suspense,
-  memo,
   useTransition,
 } from "react";
 import { getCards } from "./request";
@@ -19,7 +18,7 @@ import "./index.css";
 import { Button } from "react-bootstrap";
 
 const FloatCard = lazy(() => import("../../atoms/FloatCard"));
-const MemorizedCard = memo(Card);
+// const MemorizedCard = memo(Card);
 
 export const DashboardGame = () => {
   // hooks
@@ -139,7 +138,7 @@ export const DashboardGame = () => {
         >
           {cards?.map((item, index) => (
             <Col xs={3} sm={3} md={2} lg={2} xl={2} xxl={2} key={index}>
-              <MemorizedCard
+              <Card
                 {...item}
                 displayCard={() => handleClick(item)}
                 matched={selectedCards.includes(item) || item.matched}
