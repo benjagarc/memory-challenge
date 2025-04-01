@@ -7,7 +7,8 @@ import { AttempsContext } from "../../../store/Attemps";
 import { ErrorsContext } from "../../../store/Errors";
 import { Counter } from "../../atoms/Counter";
 import "./index.css";
-import Message from "../../atoms/Message";
+import FloatCard from "../../atoms/FloatCard";
+import { Button } from "react-bootstrap";
 
 export const DashboardGame = () => {
   // hooks
@@ -76,7 +77,14 @@ export const DashboardGame = () => {
 
   return (
     <>
-      {isShow && <Message setIsShow={() => resetGame()} />}
+      {isShow && (
+        <FloatCard>
+          <>
+            <h1>Juego terminado</h1>
+            <Button onClick={() => resetGame()}>Reiniciar</Button>
+          </>
+        </FloatCard>
+      )}
       <Container
         fluid={"sm md lg lx xxl"}
         className="bg-x2dark container-complements "
