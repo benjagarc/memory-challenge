@@ -14,3 +14,9 @@ export const shuffleCards = (cards) => {
     .map((card) => ({ ...card, matched: false }))
     .sort(() => Math.random() - 0.5);
 };
+
+export const getItem = (key) => localStorage.getItem(key);
+
+export const setItem = (key, value) => {
+  localStorage.setItem(key, value);
+};

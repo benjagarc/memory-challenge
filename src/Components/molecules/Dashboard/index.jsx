@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { getCards } from "./request";
 import { Col, Container, Row } from "react-bootstrap";
 import Card from "../../atoms/Card";
-import { InitializeCards, shuffleCards } from "./functions";
+import { InitializeCards, shuffleCards, getItem, setItem } from "./functions";
 import { AttempsContext } from "../../../store/Attemps";
 import { ErrorsContext } from "../../../store/Errors";
 import { Counter } from "../../atoms/Counter";
@@ -16,6 +16,8 @@ export const DashboardGame = () => {
   const [selectedCards, setSelectedCards] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [isShow, setIsShow] = useState(false);
+  const [userName, setUsername] = useState("");
+  const [savedUser, setSavedUser] = useState("");
 
   // context
   const { attemps, setAttemps } = useContext(AttempsContext);
@@ -43,12 +45,14 @@ export const DashboardGame = () => {
 
   useEffect(() => {
     _getCards();
+    if (getItem("userName")) {
+      setSavedUser(getItem("userName"));
+    }
   }, []);
 
   useEffect(() => {
     if (selectedCards.length === 2) {
       setDisabled((prev) => !prev);
-      setAttemps((prev) => prev + 1);
       setTimeout(() => {
         const [first, second] = selectedCards;
         if (first.uuid === second.uuid) {
@@ -73,6 +77,7 @@ export const DashboardGame = () => {
     if (cards.every(({ matched }) => matched === true)) {
       setIsShow((prev) => !prev);
     }
+    setAttemps(() => cards.filter(({ matched }) => matched === true).length);
   }, [cards]);
 
   return (
@@ -80,9 +85,29 @@ export const DashboardGame = () => {
       {isShow && (
         <FloatCard>
           <>
-            <h1>Juego terminado</h1>
+            <h1>{savedUser} el juego ha terminado</h1>
             <Button onClick={() => resetGame()}>Reiniciar</Button>
           </>
+        </FloatCard>
+      )}
+
+      {!savedUser && (
+        <FloatCard>
+          <h1>Inicia sesión</h1>
+          <input
+            type="text"
+            placeholder="Nombre de Usuario"
+            value={userName}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Button
+            onClick={() => {
+              setItem("userName", userName);
+              setSavedUser(() => userName);
+            }}
+          >
+            Iniciar sesión
+          </Button>
         </FloatCard>
       )}
       <Container
@@ -90,7 +115,7 @@ export const DashboardGame = () => {
         className="bg-x2dark container-complements "
       >
         <Row className="bg-x3dark row-counters">
-          <Counter text="Intentos" count={attemps} url="/hand.svg" />
+          <Counter text="Aciertos" count={attemps} url="/hand.svg" />
           <Counter text="Errores" count={errors} url="error.svg" />
         </Row>
         <Row
