@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
-import './index.css'
+import "./index.css";
 
 export const Counter = ({ count, url, text }) => {
   return (
     <div className="counter">
-      <img src={`${url}`} alt="icon" width={24} height={24} /> {text}: {count}
+      <img src={`${url}`} alt="icon" width={24} height={24} loading="lazy" />{" "}
+      {text}: {count}
     </div>
   );
 };
