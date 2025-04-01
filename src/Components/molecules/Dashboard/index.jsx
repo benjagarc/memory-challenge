@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { getCards } from "./request";
-import { Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Card from "../../atoms/Card";
 import { InitializeCards } from "./functions";
 import { AttempsContext } from "../../../store/Attemps";
@@ -80,12 +80,14 @@ export const DashboardGame = () => {
           }}
         >
           {cards?.map((item, index) => (
-            <Card
-              key={index}
-              {...item}
-              displayCard={() => handleClick(item)}
-              matched={selectedCards.includes(item) || item.matched}
-            />
+            <Col xs={3} sm={3} md={2} lg={2} xl={2} xxl={2}>
+              <Card
+                key={index}
+                {...item}
+                displayCard={() => handleClick(item)}
+                matched={selectedCards.includes(item) || item.matched}
+              />
+            </Col>
           ))}
         </Row>
 
