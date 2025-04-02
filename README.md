@@ -24,6 +24,6 @@ El despliegue se realizó mediante **GitHub y Netlify**, siguiendo estos pasos:
 3. **Deploy Automático**
    - Cada vez que se realiza un `git push origin master`, Netlify detecta los cambios y genera un nuevo build automáticamente.
 
-## 🔗 Enlace de la aplicación
+## 🔗 Demo
 
 📌 [Memory Challenge](https://melodious-paprenjak-c0a67e.netlify.app/)
