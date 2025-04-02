@@ -1,7 +1,8 @@
 import "./index.css";
 import PropTypes from "prop-types";
+import { memo } from "react";
 
-export const Card = ({ url, title, displayCard, matched }) => {
+export const Card = memo(({ url, title, displayCard, matched }) => {
   return (
     <div className={`flip-card`} onClick={() => displayCard()}>
       <div className={`flip-card-inner  ${matched ? "display-card" : ""}`}>
@@ -12,7 +13,7 @@ export const Card = ({ url, title, displayCard, matched }) => {
       </div>
     </div>
   );
-};
+});
 
 Card.prototype = {
   url: PropTypes.string.isRequired,

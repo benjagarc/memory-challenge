@@ -18,7 +18,6 @@ import "./index.css";
 import { Button } from "react-bootstrap";
 
 const FloatCard = lazy(() => import("../../atoms/FloatCard"));
-// const MemorizedCard = memo(Card);
 
 export const DashboardGame = () => {
   // hooks
@@ -99,7 +98,7 @@ export const DashboardGame = () => {
         </Suspense>
       )}
 
-      {!savedUser && (
+      {!savedUser ? (
         <FloatCard>
           <h1>Inicia sesión</h1>
           <input
@@ -117,36 +116,37 @@ export const DashboardGame = () => {
             Iniciar sesión
           </Button>
         </FloatCard>
-      )}
-      <Container
-        fluid={"sm md lg lx xxl"}
-        className="bg-x2dark container-complements "
-      >
-        <Row className="bg-x3dark row-counters">
-          <Counter text="Aciertos" count={attemps} url="/hand.svg" />
-          <Counter text="Errores" count={errors} url="error.svg" />
-        </Row>
-        <Row
-          bsPrefix="row"
-          xxl={12}
-          xl={12}
-          lg={12}
-          md={12}
-          sm={12}
-          xs={12}
-          className="custom-row"
+      ) : (
+        <Container
+          fluid={"sm md lg lx xxl"}
+          className="bg-x2dark container-complements "
         >
-          {cards?.map((item, index) => (
-            <Col xs={3} sm={3} md={2} lg={2} xl={2} xxl={2} key={index}>
-              <Card
-                {...item}
-                displayCard={() => handleClick(item)}
-                matched={selectedCards.includes(item) || item.matched}
-              />
-            </Col>
-          ))}
-        </Row>
-      </Container>
+          <Row className="bg-x3dark row-counters">
+            <Counter text="Aciertos" count={attemps} url="/hand.svg" />
+            <Counter text="Errores" count={errors} url="error.svg" />
+          </Row>
+          <Row
+            bsPrefix="row"
+            xxl={12}
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            className="custom-row"
+          >
+            {cards?.map((item, index) => (
+              <Col xs={3} sm={3} md={2} lg={2} xl={2} xxl={2} key={index}>
+                <Card
+                  {...item}
+                  displayCard={() => handleClick(item)}
+                  matched={selectedCards.includes(item) || item.matched}
+                />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      )}
     </>
   );
 };
