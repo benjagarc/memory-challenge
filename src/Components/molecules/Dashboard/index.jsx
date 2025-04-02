@@ -107,7 +107,11 @@ export const DashboardGame = () => {
             value={userName}
             onChange={(e) => setUsername(e.target.value)}
           />
+          {userName.length > 0 && userName.length < 3 && (
+            <span className="error-label"> Ingresa al menos 3 letras</span>
+          )}
           <Button
+            disabled={userName.length < 3}
             onClick={() => {
               setItem("userName", userName);
               setSavedUser(() => userName);
