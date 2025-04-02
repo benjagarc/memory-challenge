@@ -1,12 +1,29 @@
-# React + Vite
+# 🚀 Despliegue en Netlify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta aplicación fue desplegada utilizando **Netlify**, una plataforma que permite desplegar proyectos frontend de manera sencilla.
 
-Currently, two official plugins are available:
+## 🔧 Método de despliegue
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+El despliegue se realizó mediante **GitHub y Netlify**, siguiendo estos pasos:
 
-## Expanding the ESLint configuration
+1. **Repositorio en GitHub**
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+   - La aplicación se encuentra alojada en un repositorio de GitHub.
+   - Netlify está configurado para hacer **deploy automático** en cada `push` a la rama principal.
+
+2. **Configuración en Netlify**
+
+   - Se vinculó el repositorio con Netlify desde el panel de administración.
+   - Se configuró la rama `master` como la rama de despliegue.
+   - Se estableció el comando de compilación:
+     ```sh
+     npm run build
+     ```
+   - Se definió la carpeta de salida `dist`.
+
+3. **Deploy Automático**
+   - Cada vez que se realiza un `git push origin master`, Netlify detecta los cambios y genera un nuevo build automáticamente.
+
+## 🔗 Enlace de la aplicación
+
+📌 [Memory Challenge](https://melodious-paprenjak-c0a67e.netlify.app/)
